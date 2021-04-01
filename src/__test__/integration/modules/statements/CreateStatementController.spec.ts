@@ -3,9 +3,9 @@ import { Connection } from 'typeorm'
 import { hash } from 'bcryptjs'
 import { v4 as uuidV4 } from 'uuid'
 
-import { app } from '../../../../../app'
+import { app } from '../../../../app'
 
-import createConnection from '../../../../../database'
+import createConnection from '../../../../database'
 
 let connection: Connection
 
