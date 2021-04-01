@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  databaseChallenge:
+    image: postgres
+    container_name: databaseChallenge
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=fin_api
+    volumes:
+      - pgdata:/data/postgres
+    networks:
+      - app-network
+
+  app:
+    build: .
+    container_name: challengeIgnite
+    ports:
+      - 3333:3333
+      - 9229:9229
+    volumes:
+      - .:/usr/app
+    networks:
+      - app-network
+    links:
+      - databaseChallenge
+    depends_on:
+      - databaseChallenge
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
